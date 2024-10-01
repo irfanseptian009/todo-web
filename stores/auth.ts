@@ -1,40 +1,57 @@
-// stores/auth.ts
-import { defineStore } from 'pinia';
-import axios from 'axios';
+import { defineStore } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: null,
-    isAuthenticated: false,
+    user: useLocalStorage("user", null),
+    token: useLocalStorage("token", null),
   }),
   actions: {
-    async login(userId: string, password: string) {
+    async register(formData: { name: string; username: string; password: string }) {
+      const res = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json(); // Get the JSON response
+
+      if (!res.ok) {
+        console.error("Registration error:", data.error); // Log the error message
+        throw new Error("Registration failed");
+      }
+
+      this.user = data.user;
+      this.token = data.token;
+    },
+    async login(formData: { username: string; password: string }) {
       try {
-        const response = await axios.post('http://localhost:5000/api/login', {
-          userId,
-          password,
+        const res = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         });
-        this.user = response.data.user;
-        this.isAuthenticated = true;
-        localStorage.setItem('user', JSON.stringify(this.user));
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || "Login failed");
+        }
+
+        const data = await res.json();
+        this.user = data.user;
+        this.token = data.token;
       } catch (error) {
-        console.error('Login failed:', error);
+        if (error instanceof Error) {
+          console.error("Login error:", error.message);
+        } else {
+          console.error("Login error:", String(error));
+        }
         throw error;
       }
     },
     logout() {
       this.user = null;
-      this.isAuthenticated = false;
-      localStorage.removeItem('user');
+      this.token = null;
     },
-    checkAuth() {
-      const user = localStorage.getItem('user');
-      if (user) {
-        this.user = JSON.parse(user);
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    }
-  }
+  },
 });

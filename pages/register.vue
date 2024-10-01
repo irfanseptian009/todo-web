@@ -1,12 +1,25 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-      <h2 class="text-2xl font-semibold text-gray-700 text-center">Login</h2>
-      <p class="text-gray-600 text-center mb-6">
-        Welcome back! Please login to your account.
-      </p>
+      <h2 class="text-2xl font-semibold text-gray-700 text-center">Register</h2>
+      <p class="text-gray-600 text-center mb-6">Create a new account.</p>
 
       <form @submit.prevent="handleSubmit">
+        <!-- Name Input -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+            Name
+          </label>
+          <input
+            v-model="formData.name"
+            id="name"
+            type="text"
+            class="shadow-sm appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
         <!-- Username Input -->
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -46,15 +59,15 @@
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"
             type="submit"
           >
-            Login
+            Register
           </button>
         </div>
 
-        <!-- Register Redirect -->
+        <!-- Login Redirect -->
         <p class="text-gray-600 text-center mt-4">
-          Don’t have an account?
-          <router-link to="/register" class="text-blue-500 hover:underline"
-            >Register here</router-link
+          Already have an account?
+          <router-link to="/login" class="text-blue-500 hover:underline"
+            >Login here</router-link
           >
         </p>
       </form>
@@ -68,6 +81,7 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 
 const formData = ref({
+  name: "",
   username: "",
   password: "",
 });
@@ -80,10 +94,10 @@ const handleSubmit = async () => {
   error.value = "";
 
   try {
-    await authStore.login(formData.value);
-    router.push("/dashboard");
+    await authStore.register(formData.value);
+    router.push("/login");
   } catch (e) {
-    error.value = "Invalid username or password. Please try again.";
+    error.value = "Registration failed. Please try again.";
   }
 };
 </script>

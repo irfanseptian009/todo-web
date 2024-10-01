@@ -10,4 +10,5 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  sourceMap: process.env.NODE_ENV !== "production",
 };
