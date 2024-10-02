@@ -1,72 +1,71 @@
 const Todo = require("../models/Todo");
-let counter = 1;
+const User = require("../models/User");
 
-// Create To-Do
+// Create a new To-Do
 exports.createTodo = async (req, res) => {
-  const { subject, description } = req.body;
-  const user = req.user;
+  const { subject, description, userId } = req.body;
 
-  const activity_no = `AC-${String(counter++).padStart(4, "0")}`;
+  try {
+    const count = await Todo.countDocuments();
+    const activities_no = `AC-${String(count + 1).padStart(4, "0")}`;
 
-  const todo = await Todo.create({
-    activity_no,
-    subject,
-    description,
-    user: user._id,
-  });
+    const todo = new Todo({
+      activities_no,
+      subject,
+      description,
+      userId,
+    });
 
-  res.status(201).json(todo);
-};
-
-// Get To-Do List
-exports.getTodos = async (req, res) => {
-  const todos = await Todo.find({ user: req.user._id });
-  res.status(200).json(todos);
-};
-
-// Update To-Do (subject/description)
-exports.updateTodo = async (req, res) => {
-  const { subject, description } = req.body;
-  const todo = await Todo.findOne({
-    activity_no: req.params.activity_no,
-    user: req.user._id,
-  });
-
-  if (todo && todo.status === "Unmarked") {
-    todo.subject = subject || todo.subject;
-    todo.description = description || todo.description;
     await todo.save();
-    res.status(200).json(todo);
-  } else {
-    res.status(400).json({ message: "Cannot update this todo" });
+    res.status(201).json(todo);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create to-do" });
+  }
+};
+
+// Get To-Do list
+exports.getTodos = async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    const todos = await Todo.find({ userId });
+    res.json(todos);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch to-do list" });
+  }
+};
+
+// Update To-Do
+exports.updateTodo = async (req, res) => {
+  const { activities_no } = req.params;
+  const { status, subject, description } = req.body;
+
+  try {
+    const todo = await Todo.findOne({ activities_no });
+    if (!todo) return res.status(404).json({ message: "To-do not found" });
+
+    if (status) todo.status = status;
+    if (subject) todo.subject = subject;
+    if (description) todo.description = description;
+
+    await todo.save();
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update to-do" });
   }
 };
 
 // Delete To-Do
 exports.deleteTodo = async (req, res) => {
-  const todo = await Todo.findOne({
-    activity_no: req.params.activity_no,
-    user: req.user._id,
-  });
-  if (todo && todo.status === "Unmarked") {
-    await todo.remove();
-    res.status(200).json({ message: "To-Do deleted" });
-  } else {
-    res.status(400).json({ message: "Cannot delete this todo" });
-  }
-};
+  const { activities_no } = req.params;
 
-// Mark To-Do
-exports.markTodo = async (req, res) => {
-  const todo = await Todo.findOne({
-    activity_no: req.params.activity_no,
-    user: req.user._id,
-  });
-  if (todo) {
-    todo.status = req.body.status;
-    await todo.save();
-    res.status(200).json(todo);
-  } else {
-    res.status(404).json({ message: "To-Do not found" });
+  try {
+    const todo = await Todo.findOneAndDelete({ activities_no, status: "Unmarked" });
+    if (!todo)
+      return res.status(404).json({ message: "To-do not found or already marked" });
+
+    res.json({ message: "To-do deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete to-do" });
   }
 };

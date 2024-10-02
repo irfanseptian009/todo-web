@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
+import axios from "axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -8,50 +9,32 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     async register(formData: { name: string; username: string; password: string }) {
-      const res = await fetch("http://localhost:5000/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const {
+        public: { apiBaseUrl },
+      } = useRuntimeConfig();
+      const res = await axios.post(`${apiBaseUrl}/auth/register`, formData);
 
-      const data = await res.json(); // Get the JSON response
-
-      if (!res.ok) {
-        console.error("Registration error:", data.error); // Log the error message
-        throw new Error("Registration failed");
-      }
-
-      this.user = data.user;
-      this.token = data.token;
+      this.user = res.data.user;
+      this.token = res.data.token;
     },
+
     async login(formData: { username: string; password: string }) {
-      try {
-        const res = await fetch("http://localhost:5000/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+      const {
+        public: { apiBaseUrl },
+      } = useRuntimeConfig();
+      const res = await axios.post(`${apiBaseUrl}/auth/login`, formData);
 
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || "Login failed");
-        }
-
-        const data = await res.json();
-        this.user = data.user;
-        this.token = data.token;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Login error:", error.message);
-        } else {
-          console.error("Login error:", String(error));
-        }
-        throw error;
-      }
+      this.user = res.data.user;
+      this.token = res.data.token;
     },
+
     logout() {
       this.user = null;
       this.token = null;
+    },
+
+    isAuthenticated() {
+      return !!this.user;
     },
   },
 });
