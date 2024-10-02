@@ -12,7 +12,7 @@ interface ToDo {
 
 export const useTodoStore = defineStore("todo", () => {
   const todos = ref<ToDo[]>([]);
-  const apiBaseUrl = "http://localhost:5000/api"; // Update with your actual base URL
+  const apiBaseUrl = "http://localhost:5000/api";
 
   const fetchTodos = async (userId: string) => {
     try {

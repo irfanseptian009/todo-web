@@ -25,7 +25,6 @@
           Add To-Do
         </button>
       </form>
-      <p v-if="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</p>
     </div>
 
     <ul class="space-y-4">
@@ -65,7 +64,11 @@
     </ul>
   </div>
 </template>
+
 <script setup>
+definePageMeta({
+  middleware: "auth",
+});
 import { useTodoStore } from "@/stores/todo";
 import { useAuthStore } from "@/stores/auth";
 import { ref, onMounted } from "vue";
@@ -77,11 +80,9 @@ const router = useRouter();
 
 const newSubject = ref("");
 const newDescription = ref("");
-const errorMessage = ref("");
 
 const createTodo = async () => {
   try {
-    errorMessage.value = "";
     await todoStore.createTodo(
       newSubject.value,
       newDescription.value,
@@ -90,10 +91,7 @@ const createTodo = async () => {
     newSubject.value = "";
     newDescription.value = "";
   } catch (error) {
-    // Update error message based on the error response
-    errorMessage.value =
-      "Failed to create todo: " + (error.response?.data?.error || error.message);
-    console.error("Failed to create todo:", error);
+    console.error("Error creating todo:", error);
   }
 };
 
@@ -101,7 +99,7 @@ const markTodo = async (activities_no, status) => {
   try {
     await todoStore.markTodo(activities_no, status);
   } catch (error) {
-    console.error("Failed to mark todo:", error);
+    console.error("Error marking todo:", error);
   }
 };
 
@@ -109,7 +107,7 @@ const deleteTodo = async (activities_no) => {
   try {
     await todoStore.deleteTodo(activities_no);
   } catch (error) {
-    console.error("Failed to delete todo:", error);
+    console.error("Error deleting todo:", error);
   }
 };
 
@@ -119,12 +117,22 @@ const logout = () => {
 };
 
 onMounted(async () => {
-  if (authStore.user) {
+  authStore.initializeAuth();
+
+  if (authStore.user && authStore.user._id) {
     try {
       await todoStore.fetchTodos(authStore.user._id);
     } catch (error) {
       console.error("Failed to fetch todos:", error);
     }
+  } else {
+    console.error("User ID is undefined");
   }
 });
 </script>
+
+<style scoped>
+.container {
+  max-width: 800px;
+}
+</style>

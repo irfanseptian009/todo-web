@@ -2,7 +2,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
       <h2 class="text-2xl font-semibold text-gray-700 text-center">Register</h2>
-      <p class="text-gray-600 text-center mb-6">Create a new account.</p>
+      <p class="text-gray-600 text-center mb-6">Create an account to get started.</p>
 
       <form @submit.prevent="handleSubmit">
         <!-- Name Input -->
@@ -66,9 +66,9 @@
         <!-- Login Redirect -->
         <p class="text-gray-600 text-center mt-4">
           Already have an account?
-          <router-link to="/login" class="text-blue-500 hover:underline"
-            >Login here</router-link
-          >
+          <router-link to="/login" class="text-blue-500 hover:underline">
+            Login here
+          </router-link>
         </p>
       </form>
     </div>
@@ -94,8 +94,12 @@ const handleSubmit = async () => {
   error.value = "";
 
   try {
-    await authStore.register(formData.value);
-    router.push("/login");
+    await authStore.register(
+      formData.value.name,
+      formData.value.username,
+      formData.value.password
+    );
+    router.push("/login"); // Redirect to login after successful registration
   } catch (e) {
     error.value = "Registration failed. Please try again.";
   }
