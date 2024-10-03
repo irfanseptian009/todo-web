@@ -47,3 +47,5 @@ yarn.lock
 
 # MongoDB data (for backend if MongoDB is hosted locally via Docker)
 data/
+
+mogo-data/
