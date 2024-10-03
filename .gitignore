@@ -1,24 +1,49 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
-node_modules
+# Node modules (both frontend and backend)
+node_modules/
 
 # Logs
-logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Misc
-.DS_Store
-.fleet
-.idea
+# Build outputs (frontend)
+.nuxt/
+dist/
+static/
 
-# Local env files
+# Environment variables
 .env
-.env.*
-!.env.example
+.env.local
+.env.*.local
+
+# Production files
+build/
+out/
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+*.dockerignore
+
+# OS and IDE specific files
+.DS_Store
+Thumbs.db
+
+# Editor and IDE config files
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Ignore lock files (optional, depending on the package manager you use)
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# TypeScript cache
+*.tsbuildinfo
+
+# MongoDB data (for backend if MongoDB is hosted locally via Docker)
+data/

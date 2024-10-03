@@ -1,75 +1,110 @@
-# Nuxt 3 Minimal Starter
+Aplikasi TO-DO
+Proyek ini adalah aplikasi web TO-DO full-stack yang memungkinkan pengguna untuk mendaftar, login, dan mengelola aktivitas to-do mereka. Aplikasi ini terdiri dari frontend yang dibangun menggunakan Nuxt.js dan backend yang dibangun menggunakan Express.js dan MongoDB. Proyek ini sudah dikontainerisasi menggunakan Docker sehingga mudah diatur dan dijalankan.
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+FITUR
 
-## Setup
+Autentikasi Pengguna: Pengguna dapat mendaftar dan login.
+Manajemen To-Do: Buat, edit, tandai sebagai selesai/dibatalkan, dan hapus aktivitas to-do.
+Pelacakan Status: Setiap tugas memiliki status (selesai, dibatalkan).
+Desain Responsif: Frontend sepenuhnya responsif dan ramah untuk mobile.
+Penanganan Kesalahan: Penanganan kesalahan dan mekanisme logging yang baik.
+Kontainerisasi: Pengaturan menggunakan Docker untuk pengembangan dan deployment yang mudah.
 
-Make sure to install the dependencies:
+TEKNOLOGI
 
-```bash
-# npm
+Frontend: Nuxt.js, Tailwind CSS, TypeScript, Pinia untuk manajemen state
+Backend: Express.js, MongoDB, Mongoose, JWT untuk autentikasi
+Database: MongoDB
+Kontainerisasi: Docker, Docker Compose
+
+PERSYARTAN
+
+Sebelum memulai, pastikan Anda telah menginstal:
+Docker: Untuk kontainerisasi.
+Docker Compose: Untuk menjalankan aplikasi multi-kontainer Docker.
+Instalasi dan Setup
+Dengan Docker
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi menggunakan Docker:
+
+Clone repository ini:
+
+bash
+Salin kode
+git clone https://github.com/irfanseptian009/todo-web
+cd todo-web-app
+Konfigurasikan variabel lingkungan:
+
+Buat file .env untuk backend dan frontend berdasarkan contoh .env.example yang disediakan.
+Pada .env backend, atur koneksi MongoDB dan JWT secret.
+Pada .env frontend, atur API base URL (misal: http://localhost:5000/api).
+
+Contoh .env
+
+MONGO_URI=mongodb://mongo:27017/todoapp
+JWT_SECRET=kunci_rahasia_jwt_anda
+PORT=5000
+
+Build dan jalankan kontainer: Dari direktori root, jalankan perintah berikut untuk membangun dan menjalankan aplikasi:
+docker-compose up --build
+
+AKSES APLIKASI
+Frontend: Buka browser dan akses http://localhost:3000.
+Backend: API tersedia di http://localhost:5000/api.
+Tanpa Docker
+Jika Anda lebih suka menjalankan proyek tanpa Docker, ikuti instruksi berikut:
+
+Backend:
+
+Masuk ke folder backend:
+cd backend
+
+Instal dependencies:
 npm install
 
-# pnpm
-pnpm install
+Jalankan server:
+npm start
 
-# yarn
-yarn install
+Backend API sekarang berjalan di http://localhost:5000.
 
-# bun
-bun install
-```
+Frontend:
 
-## Development Server
+Masuk ke folder frontend:
+cd frontend
 
-Start the development server on `http://localhost:3000`:
+Instal dependencies:
+npm install
 
-```bash
-# npm
+Jalankan aplikasi Nuxt.js:
 npm run dev
 
-# pnpm
-pnpm run dev
+Frontend sekarang berjalan di http://localhost:3000.
+Variabel Lingkungan
+Proyek ini memerlukan beberapa variabel lingkungan yang harus dikonfigurasikan di frontend dan backend.
 
-# yarn
-yarn dev
+Backend:
 
-# bun
-bun run dev
-```
+MONGO_URI: String koneksi MongoDB.
+JWT_SECRET: Kunci rahasia untuk pembuatan token JWT.
+PORT: Port backend (default: 5000).
 
-## Production
+Frontend:
 
-Build the application for production:
+API_BASE_URL: URL base untuk API backend (misal: http://localhost:5000/api).
+Penggunaan
+Setelah aplikasi berjalan:
 
-```bash
-# npm
-npm run build
+Daftar pengguna: Kunjungi halaman registrasi dan buat akun baru.
+Login: Login menggunakan kredensial yang telah Anda buat.
+Kelola To-Do:
+Buat to-do baru.
+Ed kodeit atau hapus to-do yang sudah ada.
+Tandai to-do sebagai selesai atau dibatalkan.
+Lihat status dari setiap to-do.
+Kontribusi
+Jika Anda ingin berkontribusi dalam proyek ini:
 
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Fork repository ini.
+Buat branch fitur baru (git checkout -b fitur-anda).
+Commit perubahan Anda (git commit -m 'Menambahkan fitur baru').
+Push ke branch Anda (git push origin fitur-anda).
+Buat Pull Request.
