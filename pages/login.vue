@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-300"
+    class="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-300"
   >
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
       <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Welcome Back!</h2>

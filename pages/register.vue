@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-300"
+  >
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
       <h2 class="text-2xl font-semibold text-gray-700 text-center">Register</h2>
       <p class="text-gray-600 text-center mb-6">Create an account to get started.</p>
