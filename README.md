@@ -39,7 +39,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi menggunakan Docker:
 
 CLONE REPOSITORI INI:
 git clone https://github.com/irfanseptian009/todo-web
-cd todo-web-app
+cd todo-web
 
 KONFIGURASI VARIABEL LINGKUNGAN:
 Buat file .env untuk backend dan frontend berdasarkan contoh .env.example yang disediakan.
