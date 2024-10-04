@@ -78,7 +78,7 @@ Jika Anda lebih suka menjalankan proyek tanpa Docker, ikuti instruksi berikut:
 ### Backend:
 ```bash
 Masuk ke folder backend:
-cd backend
+cd Todo-Backend
 
 Instal dependencies:
 npm install
@@ -93,7 +93,7 @@ Backend API sekarang berjalan di http://localhost:5000.
 ### Frontend:
 ```bash
 Masuk ke folder frontend:
-cd frontend
+cd Todo-Frontend
 
 Instal dependencies:
 npm install
