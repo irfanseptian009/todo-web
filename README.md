@@ -124,9 +124,11 @@ API_BASE_URL: URL base untuk API backend (misal: http://localhost:5000/api)
 
 ## SETELAH APLIKASI BERJALAN:
 
-Daftar pengguna: Kunjungi halaman registrasi dan buat akun baru.
-Login: Login menggunakan kredensial yang telah Anda buat.
-Kelola To-Do:
+**Daftar pengguna:** Kunjungi halaman registrasi dan buat akun baru.
+
+**Login:** Login menggunakan kredensial yang telah Anda buat.
+
+**Kelola To-Do:** 
 Buat to-do baru.
 Ed kodeit atau hapus to-do yang sudah ada.
 Tandai to-do sebagai selesai atau dibatalkan.
