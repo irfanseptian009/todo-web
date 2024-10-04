@@ -67,9 +67,9 @@ docker-compose up --build
 
 ## AKSES APLIKASI
 #### Frontend: 
-Buka browser dan akses http://localhost:3000.
+Buka browser dan akses http://localhost:3000
 #### Backend:
-API tersedia di http://localhost:5000/api.
+API tersedia di http://localhost:5000/api
 
 ## Tanpa Docker
 Jika Anda lebih suka menjalankan proyek tanpa Docker, ikuti instruksi berikut:
@@ -86,7 +86,7 @@ npm install
 Jalankan server:
 npm start
 ```
-Backend API sekarang berjalan di http://localhost:5000.
+Backend API sekarang berjalan di http://localhost:5000
 
 
 
@@ -101,7 +101,7 @@ npm install
 Jalankan aplikasi Nuxt.js:
 npm run dev
 ```
-Frontend sekarang berjalan di http://localhost:3000.
+Frontend sekarang berjalan di http://localhost:3000
 
 
 ## Variabel Lingkungan
