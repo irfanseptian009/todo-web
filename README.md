@@ -105,7 +105,10 @@ Frontend sekarang berjalan di http://localhost:3000
 
 
 ## Variabel Lingkungan
-Proyek ini memerlukan beberapa variabel lingkungan yang harus dikonfigurasikan di frontend dan backend.
+Proyek ini memerlukan beberapa variabel lingkungan/env yang harus dikonfigurasikan di  backend.
+tambahkan di file .env
+
+contoh:
 
 #### Backend:
 ```bash
@@ -113,12 +116,6 @@ MONGO_URI: String koneksi MongoDB.
 JWT_SECRET: Kunci rahasia untuk pembuatan token JWT.
 PORT: Port backend (default: 5000).
 ```
-
-#### Frontend:
-```bash
-API_BASE_URL: URL base untuk API backend (misal: http://localhost:5000/api)
-```
-
 
 
 
