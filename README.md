@@ -146,6 +146,10 @@ Commit perubahan Anda (git commit -m 'Menambahkan fitur baru').
 Push ke branch Anda (git push origin fitur-anda).
 Buat Pull Request.
 
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
 
 
 
