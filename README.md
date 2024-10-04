@@ -46,7 +46,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi menggunakan Docker:
 ```bash
 git clone https://github.com/irfanseptian009/todo-web
 
-cd todo-web-app
+cd todo-web
 ```
 
 ## KONFIGURASI VARIABEL LINGKUNGAN:
