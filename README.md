@@ -50,7 +50,7 @@ cd todo-web
 ```
 
 ## KONFIGURASI VARIABEL LINGKUNGAN:
-Buat file .env untuk backend dan frontend berdasarkan contoh .env.example yang disediakan.
+Buat file .env untuk backend .env.example yang disediakan.
 Pada .env backend, atur koneksi MongoDB dan JWT secret.
 
 
